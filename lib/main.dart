@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fs_report/entities/contact.dart';
+import 'package:fs_report/entities/report.dart';
+import 'package:fs_report/utilities/timer_provider.dart';
+import 'package:provider/provider.dart';
 // import 'package:fs_report/entities/contact.dart';
 // import 'package:fs_report/entities/report.dart';
 // import 'package:isar/isar.dart';
-// import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'entities/biblestudy_record.dart';
 import 'pages/home_page.dart';
 import 'pages/addHours_page.dart';
 import 'pages/contacts_page.dart';
@@ -23,13 +30,24 @@ const List<String> listOfMonths = <String>[
 ];
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // final dir = await getApplicationDocumentsDirectory();
-  // final isar = await Isar.open(
-  //   [ContactsSchema, ReportSchema],
-  //   directory: dir.path,
-  // );
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  var appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocumentDir.path);
+
+  // await Hive.initFlutter();
+
+  Hive.registerAdapter(ContactsAdapter());
+  Hive.registerAdapter(ReportAdapter());
+  Hive.registerAdapter(BiblestudyrecordAdapter());
+
+  await Hive.openBox<Contacts>('Contacts');
+  // await Hive.openBox<Report>('Reports');
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TimerModel(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

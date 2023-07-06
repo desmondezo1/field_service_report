@@ -37,23 +37,20 @@ class _Home_pageState extends State<Home_page> {
             Container(
               // height: 257,
               margin: const EdgeInsets.only(left: 33, right: 33),
-              child: Row(
+              child: const Row(
                 children: [
                   Expanded(
                     child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      margin: const EdgeInsets.only(top: 36),
-                      color: const Color(0xFF171717),
+                      margin: EdgeInsets.only(top: 36),
+                      color: Color(0xFF171717),
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(33, 42, 0, 46),
+                        padding: EdgeInsets.fromLTRB(33, 42, 0, 46),
                         child: SizedBox(
                           // height: 257,
                           // width: 332,
                           child: Column(
                             children: [
-                              const Align(
+                              Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
                                   'Goal - 70 hrs',
@@ -70,7 +67,7 @@ class _Home_pageState extends State<Home_page> {
                                   crossAxisAlignment:
                                       CrossAxisAlignment.baseline,
                                   textBaseline: TextBaseline.alphabetic,
-                                  children: const [
+                                  children: [
                                     Text('67',
                                         style: TextStyle(
                                             color: Colors.white,
